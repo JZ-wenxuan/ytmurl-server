@@ -18,5 +18,5 @@ class handler(BaseHTTPRequestHandler):
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
-    self.wfile.write(f"hello world {query['q'][0]}")
+    self.wfile.write(f"hello world {query['q'][0]}".encode())
     return
