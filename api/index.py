@@ -8,15 +8,11 @@ class handler(BaseHTTPRequestHandler):
 
     # retrieve query
     query = parse_qs(parsed_url.query)
-    # try:
-    #   response = get_ytmrul(query['q'][0], (int(query['dmin'][0]), int(query['dmax'][0])))
-    # except:
-    #   self.send_response(500)
-    #   return
+    response = get_ytmrul(query['q'][0], (int(query['dmin'][0]), int(query['dmax'][0])))
 
     # Send the HTML message
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
-    self.wfile.write(f"hello world {query['q'][0]}".encode())
+    self.wfile.write(response.encode())
     return
