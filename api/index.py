@@ -5,9 +5,6 @@ from urllib.parse import urlparse, parse_qs
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
     parsed_url = urlparse(self.path)
-    if parsed_url.path != '/song':
-      self.send_response(404)
-      return
 
     # retrieve query
     query = parse_qs(parsed_url.query)
