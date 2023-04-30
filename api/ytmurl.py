@@ -1,6 +1,7 @@
 from http.server import BaseHTTPRequestHandler
 from ytmurl.get import get as get_ytmrul
 from urllib.parse import urlparse, parse_qs
+import traceback
 
 class handler(BaseHTTPRequestHandler):
   def do_GET(self):
@@ -8,8 +9,13 @@ class handler(BaseHTTPRequestHandler):
 
     # retrieve query
     query = parse_qs(parsed_url.query)
-    response = get_ytmrul(query['q'][0], (int(query['dmin'][0]), int(query['dmax'][0])))
-
+    try:
+      response = get_ytmrul(query['q'][0], (int(query['dmin'][0]), int(query['dmax'][0])))
+    except:
+      # simply send 404 since this is most likely song requested is not found
+      self.send_error(404)
+      return
+      
     # Send the HTML message
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
