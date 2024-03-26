@@ -10,8 +10,7 @@ class handler(BaseHTTPRequestHandler):
     # retrieve query
     query = parse_qs(parsed_url.query)
     try:
-      response = get_ytmrul(query['q'][0], (int(query['dmin'][0]), int(query['dmax'][0])), format='mp4')
-      print(response)
+      response = get_ytmrul(query['q'][0], (int(query['dmin'][0]), int(query['dmax'][0])))
     except Exception as e:
       # simply send 404 since this is most likely song requested is not found
       print(e)
